@@ -1,25 +1,32 @@
 from pathlib import Path
 
-def solutions():
-    nums = {'one': '1', 'two': '2', 'three': '3', 'four': '4', 'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9'}
-    digits = "123456789"
-    data = open('input.txt', 'r').read().splitlines()[23:24]
-    sol1, sol2 = 0, 0
-    for line in data:
-        minidx, maxidx = len(line), -1; l, r = "", ""
-        for k in digits:
-            if (li := line.find(k)) != -1 and li <= minidx:
-                l, minidx = k, li
-            if (ri := line.rfind(k)) != -1 and ri >= maxidx:
-                r, maxidx = k, ri
-        sol1 += int(''.join((l, r)))
-        for k in nums:
-            if (li := line.find(k)) != -1 and li <= minidx:
-                l, minidx = k, li
-            if (ri := line.rfind(k)) != -1 and ri >= maxidx:
-                r, maxidx = k, ri
-        sol2 += int(''.join((nums.get(l, l), nums.get(r, r))))
-            
-    return sol1, sol2
+input = \
+    """plckvxznnineh34eight2"""
+# input = open('input.txt', 'r').read()
 
-print(solutions())
+spelled = [
+    "one",    "two",    "three", 
+    "four",   "five",   "six",
+    "seven",  "eight",  "nine"
+]
+digits = "123456789"
+
+total = 0
+
+for line in input.split("\n"):
+    p = 0
+    nums = []
+    while p < len(line):
+        for digit in digits:
+            if line.startswith(digit, p):
+                nums.append(digits.index(digit)+1)
+                break
+        else:
+            for word in spelled:
+                if line.startswith(word, p):
+                    nums.append(spelled.index(word)+1)
+                    break
+        p += 1
+    total += nums[0] * 10 + nums[-1]
+
+print(F"sum: {total}")

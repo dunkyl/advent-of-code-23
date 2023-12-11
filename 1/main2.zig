@@ -57,7 +57,7 @@ pub fn main() !void {
                                 // std.debug.print(": matched {d}/{d} {s}", .{index.*, word.len, word});
                             }
                             // std.debug.print("\n", .{});
-                        } else if (word[0] == c) {
+                        } else if (word[0] == c) { // repeated first letter
                             // std.debug.print("matched {c}", .{word[0]});
                             index.* = 1;
                             // std.debug.print(": matched {d}/{d} {s}", .{index.*, word.len, word});
